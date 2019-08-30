@@ -36,7 +36,7 @@ class ImioSsoAgents(BaseResource):
     ignore_types =  models.CharField(_('Types to ignore'), default='', max_length=128, blank=True)
     
     class Meta:
-        verbose_name = _("Expose Agents CSV to valid JSON that be comsumme by Entr'ouvert")
+        verbose_name = _("imio.memory CSV to JSON that be comsumme by WCA.")
 
     @classmethod
     def get_verbose_name(cls):
