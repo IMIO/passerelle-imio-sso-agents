@@ -30,7 +30,7 @@ from passerelle.utils.api import endpoint
 class ImioSsoAgents(BaseResource):
 
     category = _('Datasources manager')
-    meal_file = models.FileField(_('Agents csv file'), upload_to='agents_csv',
+    csv_file = models.FileField(_('Agents csv file'), upload_to='agents_csv',
         help_text=_('Supported file formats: csv'))
     
     ignore_types =  models.CharField(_('Types to ignore'), default='', max_length=128, blank=True)
@@ -50,12 +50,12 @@ class ImioSsoAgents(BaseResource):
         return result
 
     def get_content_without_bom(self):
-        self.meal_file.seek(0)
-        content = self.meal_file.read()
+        self.csv_file.seek(0)
+        content = self.csv_file.read()
         return content.decode('utf-8-sig', 'ignore').encode('utf-8')
 
     def get_rows(self):
-        file_type = self.meal_file.name.split('.')[-1]
+        file_type = self.csv_file.name.split('.')[-1]
         if file_type == 'csv':
             content = self.get_content_without_bom()
             reader = csv.reader(content.splitlines(), delimiter=',')

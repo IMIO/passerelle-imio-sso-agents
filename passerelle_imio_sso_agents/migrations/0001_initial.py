@@ -21,7 +21,7 @@ class Migration(migrations.Migration):
                 ('title', models.CharField(max_length=50, verbose_name='Title')),
                 ('description', models.TextField(verbose_name='Description')),
                 ('slug', models.SlugField(unique=True, verbose_name='Identifier')),
-                ('meal_file', models.FileField(help_text='Supported file formats: csv', upload_to=b'agents_csv', verbose_name='Agents csv file')),
+                ('csv_file', models.FileField(help_text='Supported file formats: csv', upload_to=b'agents_csv', verbose_name='Agents csv file')),
                 ('ignore_types', models.CharField(blank=True, default=b'', max_length=128, verbose_name='Types to ignore')),
                 ('users', models.ManyToManyField(blank=True, related_name='_imiossoagents_users_+', related_query_name='+', to='base.ApiUser')),
             ],
