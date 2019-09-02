@@ -33,6 +33,7 @@ pipeline {
     post {
         always {
             sh "rm -f passerelle-imio-sso-agents_*.deb"
+            cleanWs()
         }
 
     }
