@@ -1,4 +1,4 @@
-# passerelle-imio-aes-meal - passerelle connector for aes meal management
+# passerelle-imio-sso-agents - passerelle connector
 # Copyright (C) 2016  Entr'ouvert / Imio
 #
 # This program is free software: you can redistribute it and/or modify it
