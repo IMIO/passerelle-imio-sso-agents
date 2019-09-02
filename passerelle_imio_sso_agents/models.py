@@ -100,7 +100,7 @@ class ImioSsoAgents(BaseResource):
                     agent.update( {keys[num_col]:col} )
                     if keys[num_col] == 'municipality_id':
                         current_municipality_id = col
-                    if keys[num_col].startswith('old') and keys[num_col].endswith('userid'):
+                    if keys[num_col].startswith('old') and keys[num_col].endswith('userid') and r[num_col] != '':
                         service = '{0}-{1}'.format(current_municipality_id, keys[num_col].split('_')[1].replace('.','').lower())
                         allowed_services.append(service)
                     num_col = num_col + 1
