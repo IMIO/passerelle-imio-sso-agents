@@ -34,7 +34,15 @@ class ImioSsoAgents(BaseResource):
         help_text=_('Supported file formats: csv'))
     
     ignore_types =  models.CharField(_('Types to ignore'), default='', max_length=128, blank=True)
-    
+    locality_name =  models.CharField(_('Locality name'), default='', max_length=128, blank=True)
+    locality_slug =  models.CharField(_('Locality slug (enterprise number)'), default='', max_length=128, blank=True)
+
+    #services_client_id
+    #services_client_secret
+    #services_frontchannel_logout_uri
+    all_services = []
+
+
     class Meta:
         verbose_name = _("imio.memory CSV to JSON that be comsumme by WCA.")
 
@@ -62,8 +70,6 @@ class ImioSsoAgents(BaseResource):
             rows = list(reader)
         return rows
 
-
-
     def add_app(mun_id, app_id):
         url = "{0}/{1}/{2}".format(memroy_base_url, app_name, mun_id)
         req = requests.get(url)
@@ -76,22 +82,49 @@ class ImioSsoAgents(BaseResource):
 
     @endpoint(perm='can_access', methods=['get'])
     def export_to_memory(self, users):
-        add_app(mun_id, app_id)
+        self.add_app(mun_id, app_id)
         line_count = 0
         for user in users:
             add_user(user)
             line_count += 1
 
+    def locality(self):
+        return { "name":self.locality_name,
+                 "slug":self.locality_slug
+               }
+
+    def get_different_services(self):
+        return {v['slug']:v for v in self.all_services}.values()
+
+    def services(self, service_slug):
+        service = {
+            "client_id": "",
+            "client_secret": "",
+            "frontchannel_logout_uri": "https://.../logout",
+            "name": "commune iaAPPLI",
+            "open_to_all": False,
+            "post_logout_redirect_uris": [
+                "https://liege.staging.imio.be"
+            ],
+            "redirect_uris": [
+                ""
+            ],
+            "slug": service_slug #"commune-iaAPPLI"
+        }
+        self.all_services.append(service)
+
     @endpoint(perm='can_access', methods=['get'])
     def json(self, request, **kwargs):
+        rows = self.get_rows()
         keys = []
         agents = []
-        rows = self.get_rows()
         for r in rows:
             num_col = 0
+            # csv header (Agent keys)
             if rows.index(r) == 0:
                 for col in r:
                     keys.append(col)
+            # build agent
             else:
                 allowed_services = []
                 agent = {}
@@ -100,10 +133,15 @@ class ImioSsoAgents(BaseResource):
                     agent.update( {keys[num_col]:col} )
                     if keys[num_col] == 'municipality_id':
                         current_municipality_id = col
-                    if keys[num_col].startswith('old') and keys[num_col].endswith('userid') and r[num_col] != '':
-                        service = '{0}-{1}'.format(current_municipality_id, keys[num_col].split('_')[1].replace('.','').lower())
-                        allowed_services.append(service)
+                    if keys[num_col].startswith('old') and keys[num_col].endswith('userid'):
+                        service_slug = '{0}-{1}'.format(current_municipality_id, keys[num_col].split('_')[1].replace('.','').lower())
+                        self.services(service_slug)
+                        allowed_services.append(service_slug)
                     num_col = num_col + 1
                 agent.update( {"allowed_services":allowed_services} )
                 agents.append(agent)
-        return {'data':agents}
+        json = {}
+        json["locality"] = self.locality()
+        json["users"] = agents
+        json["services"] = self.get_different_services()
+        return {'data':json}
