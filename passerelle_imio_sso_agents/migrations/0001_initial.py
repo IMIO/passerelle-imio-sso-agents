@@ -9,10 +9,6 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-        ('base', '0013_delete_templatevar'),
-    ]
-
     operations = [
         migrations.CreateModel(
             name='ImioSsoAgents',
