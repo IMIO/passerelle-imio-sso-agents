@@ -1,6 +1,3 @@
-recursive-include passerelle-imio-sso-agents/static *.css *.png
-recursive-include passerelle-imio-sso-agents/templates *.html *.txt
-recursive-include passerelle-imio-sso-agents/locale *.po *.mo
 include MANIFEST.in
 include version
 include README.md
