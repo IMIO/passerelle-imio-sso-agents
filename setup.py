@@ -15,7 +15,7 @@ setup(
     url='https://github.com/IMIO/passerelle-imio-sso-agents',
     packages=find_packages(),
     install_requires=[
-        'django>=1.11',
+        'django>=2.2',
         ],
     cmdclass={
         'install_lib': install_lib,

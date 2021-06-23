@@ -1,6 +1,12 @@
 Changelog
 =========
 
+0.1.2
+----------------
+- set python3-django as required
+- remove letters in verion
+  [dmuyshond]
+
 0.1.1c
 ----------------
 - init buster branch that will become master later and adapt Jenkinsfile for Nexus (Debian Buster packages)
