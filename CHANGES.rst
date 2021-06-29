@@ -1,6 +1,13 @@
 Changelog
 =========
 
+0.1.3
+----------------
+- split fpm command on multiple lines
+- set django required version to 1.11 to 2.2
+- do not autobuild dependencies with fpm
+  [nhislaire]
+
 0.1.2
 ----------------
 - set python3-django as required
