@@ -1,6 +1,11 @@
 Changelog
 =========
 
+0.1.4
+----------------
+- clean workspace only on success
+  [nhislaire]
+
 0.1.3
 ----------------
 - split fpm command on multiple lines
