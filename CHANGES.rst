@@ -3,6 +3,11 @@ Changelog
 
 0.1.4
 ----------------
+- add -k option to curl to avoid SSL problems
+  [dmuyshond]
+
+0.1.4
+----------------
 - clean workspace only on success
   [nhislaire]
 
