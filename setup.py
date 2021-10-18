@@ -8,10 +8,13 @@ class install_lib(_install_lib):
     def run(self):
         _install_lib.run(self)
 
+version = "0.1.6"
+
 setup(
     name='passerelle-imio-sso-agents',
-    author='Christophe Boulanger',
-    author_email='christophe.boulanger@imio.be',
+    version=version,
+    author='iA.Teleservices',
+    author_email='support-ts@imio.be',
     url='https://github.com/IMIO/passerelle-imio-sso-agents',
     packages=find_packages(),
     install_requires=['django >=1.11, <2.3',],

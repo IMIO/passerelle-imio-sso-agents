@@ -1,7 +1,15 @@
 Changelog
 =========
 
-0.1.4
+
+0.1.6
+----------------
+- set version in setup.py
+- set author to iA.Teleservices team
+- use iateleservicesCreateDeb pipeline function
+  [nhislaire]
+
+0.1.5
 ----------------
 - add -k option to curl to avoid SSL problems
   [dmuyshond]
