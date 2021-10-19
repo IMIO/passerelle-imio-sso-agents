@@ -7,6 +7,7 @@ Changelog
 - set version in setup.py
 - set author to iA.Teleservices team
 - use iateleservicesCreateDeb pipeline function
+- set install path to jenkinsfile
   [nhislaire]
 
 0.1.5
